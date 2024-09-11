@@ -1,5 +1,6 @@
 import os
 import environ
+from datetime import timedelta
 
 from pathlib import Path
 
@@ -242,7 +243,7 @@ DJOSER = {
     },
 }
 
-AUTH_USER_MODEL="user.UserAccount"
+# AUTH_USER_MODEL="user.UserAccount"
 EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
 
 
