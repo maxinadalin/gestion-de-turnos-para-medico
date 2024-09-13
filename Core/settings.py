@@ -38,7 +38,7 @@ DJANGO_APPS = [
 ]
 
 # here we put on all apps we will create
-PROJECT_APPS = []
+PROJECT_APPS = ['apps.user']
 ECOMMERCE_APPS = []
 
 
@@ -85,7 +85,7 @@ ROOT_URLCONF = 'Core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -243,7 +243,7 @@ DJOSER = {
     },
 }
 
-# AUTH_USER_MODEL="user.UserAccount"
+AUTH_USER_MODEL="user.UserAccount"
 EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
 
 
