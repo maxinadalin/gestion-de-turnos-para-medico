@@ -1,10 +1,20 @@
 import { connect } from "react-redux";
 import NavBar from "../components/navigation/navBar";
 import Footer from "../components/navigation/footer";
+import { useEffect } from "react";
+import { check_authenticated, Load_user } from "../redux/actions/auth/auth";
 
 function Layout({
-  children
+  children,
+  Load_user,
+  check_authenticated
+
 }){
+
+  useEffect (() =>{
+    Load_user();
+    check_authenticated();
+  },[check_authenticated,Load_user])
     return(
        <div>
          <NavBar/>
@@ -19,8 +29,10 @@ function Layout({
 
 const mapStateToProps = (state) => ({
 
+
 })
 
 export default connect(mapStateToProps,{
-
+Load_user,
+check_authenticated
 }) (Layout)
