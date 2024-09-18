@@ -147,6 +147,41 @@ export const activate = (uid, token) => async (dispatch) => {
     });
   }
 };
+export const Load_user = () =>async dispatch => {
+  if (localStorage.getItem("access")) {
+      const config = {
+          headers:{
+              "accept" :"application/json",
+              'Authorization': `JWT ${localStorage.getItem('access')}`,
+          }
+      }
+      try {
+          const res = await axios.get(`${process.env.REACT_APP_API_URL}/auth/users/me/`, config);
+      
+          if (res.status === 200) {
+             dispatch({
+                 type:USER_LOADED_SUCCESS,
+                 payload:res.data
+             })
+          }else{
+             dispatch({
+                 type:USER_LOADED_FAIL,
+             })
+          } 
+      } catch (error) {
+          dispatch({
+              type:USER_LOADED_FAIL,
+          })
+      }
+      
+   
+  
+  }else{
+      dispatch({
+          type:USER_LOADED_FAIL,
+      })
+  }
+}
 
 export const Sign_In = (email, password) => async dispatch => {
   dispatch({
@@ -194,38 +229,42 @@ export const Sign_In = (email, password) => async dispatch => {
   }
 };
 
-export const Load_user = () =>async dispatch => {
-    if (localStorage.getItem("access")) {
-        const config = {
-            headers:{
-                "accept" :"application/json",
-                'Authorization': `JWT ${localStorage.getItem('access')}`,
-            }
-        }
-        try {
-            const res = await axios.get(`${process.env.REACT_APP_API_URL}/auth/users/me/`, config);
-        
-            if (res.status === 200) {
-               dispatch({
-                   type:USER_LOADED_SUCCESS,
-                   payload:res.data
-               })
-            }else{
-               dispatch({
-                   type:USER_LOADED_FAIL,
-               })
-            } 
-        } catch (error) {
-            dispatch({
-                type:USER_LOADED_FAIL,
-            })
-        }
-        
-     
-    
-    }else{
-        dispatch({
-            type:USER_LOADED_FAIL,
-        })
+
+
+export const Refresh = () =>async dispatch =>{
+  if (localStorage.getItem("refresh")) {
+    const config = {
+      headers : {
+        "accept" : "application/json",
+        "Content-Type" : "application/json"
+      }
     }
-}
+    const body = JSON.stringify({
+     refresh:  localStorage.getItem("refresh")
+    })
+
+    try {
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/jwt/refresh/`,body,config
+      )
+
+      if (res.status === 200) {
+        dispatch({
+          type: REFRESH_SUCCESS,
+          payload: res.data,
+        });
+      } else {
+        dispatch({
+          type: REFRESH_FAIL,
+        });
+      }
+    } catch (error) {
+      dispatch({
+        type: REFRESH_FAIL,
+      });
+    }
+  } else {
+    dispatch({
+      type: REFRESH_FAIL,
+    });
+  }
+  }
