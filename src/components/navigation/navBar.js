@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import {Menu, Popover, Transition } from "@headlessui/react";
 import {BookmarkIcon,
     BriefcaseIcon,
@@ -19,13 +19,14 @@ import {BookmarkIcon,
     TableCellsIcon,
     XMarkIcon as XIcon, // `XMarkIcon` es el equivalente actualizado
   } from '@heroicons/react/24/outline';
-  import { Link } from "react-router-dom";
+  import { Link, Navigate } from "react-router-dom";
   
   
   // Para estilo sólido, cambia 'outline' a 'solid'
   
 
   import { ChevronDownIcon } from '@heroicons/react/24/solid';
+  import { logout } from "../../redux/actions/auth/auth";
 
 
 
@@ -60,8 +61,6 @@ const solutions = [
   },
 ];
 const callsToAction = [
-  { name: "Watch Demo", href: "#", icon: PlayIcon },
-  { name: "View All Products", href: "#", icon: CheckCircleIcon },
   { name: "Contact Sales", href: "#", icon: PhoneIcon },
 ];
 const company = [
@@ -107,8 +106,21 @@ function classNames(...classes) {
 
 function NavBar({
   isAuthenticated,
-  loading
+  loading,
+  logout,
 }) {
+
+  const [redirect,setRedirect] = useState(false)
+
+  const logOutHandler = (e) => {
+    e.preventDefault();
+    logout();
+    setRedirect(true);
+  };
+
+if (redirect) {
+  return <Navigate to={"/"}/>
+}
 
 const guesLinks = (
   <div className="flex items-center md:ml-12">
@@ -128,13 +140,29 @@ const guesLinks = (
 )
 
 const authLinks = (
-  <Menu as="div" className="relative inline-block text-left">
+<div className="flex items-center space-x-6 ">
+<div className="flex items-center  md:ml-12">
+  <Link 
+    to={"/SignIn"}
+    className="ml-8 inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+  >
+    Mis Citas
+  </Link>
+  <Link
+    to={"/SignUp"}
+    className="ml-8 inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+  >
+    Solicitar Cita
+  </Link>
+</div>
+<Menu as="div" className="relative inline-block text-left">
   <div>
     <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
       Options
       <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
     </Menu.Button>
   </div>
+  
 
   <Transition
     as={Fragment}
@@ -191,7 +219,7 @@ const authLinks = (
             {({ active }) => (
               <button
                 type="button"
-                // onClick={logOutHandler}
+                onClick={logOutHandler}
                 className={classNames(
                   active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                   "block w-full text-left px-4 py-2 text-sm"
@@ -205,7 +233,7 @@ const authLinks = (
       </div>
     </Menu.Items>
   </Transition>
-</Menu>
+</Menu></div>
 )
 
 
@@ -244,7 +272,7 @@ const authLinks = (
                       "group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     )}
                   >
-                    <span>Solutions</span>
+                    <span>Coberturas</span>
                     <ChevronDownIcon
                       className={classNames(
                         open ? "text-gray-600" : "text-gray-400",
@@ -325,14 +353,9 @@ const authLinks = (
               href="#"
               className="text-base font-medium text-gray-500 hover:text-gray-900"
             >
-              Pricing
+              Sobre Nosotros
             </a>
-            <a
-              href="#"
-              className="text-base font-medium text-gray-500 hover:text-gray-900"
-            >
-              Docs
-            </a>
+
             <Popover>
               {({ open }) => (
                 <>
@@ -519,15 +542,7 @@ const authLinks = (
                     </a>
                   ))}
                 </div>
-                <div className="mt-8 text-base">
-                  <a
-                    href="#"
-                    className="font-medium text-indigo-600 hover:text-indigo-500"
-                  >
-                    {" "}
-                    View all products <span aria-hidden="true">&rarr;</span>
-                  </a>
-                </div>
+               
               </nav>
             </div>
           </div>
@@ -600,5 +615,7 @@ const mapStateToProps = state => ({
   loading: state.auth.loading
 })
 
-export default connect (mapStateToProps,{}) (NavBar)
+export default connect (mapStateToProps,{
+  logout,
+}) (NavBar)
 

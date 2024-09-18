@@ -204,7 +204,7 @@ export const Sign_In = (email, password) => async dispatch => {
       body,
       config
     );
-    if (res.data === 200) {
+    if (res.status === 200) {
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data,
@@ -228,8 +228,6 @@ export const Sign_In = (email, password) => async dispatch => {
     });
   }
 };
-
-
 
 export const Refresh = () =>async dispatch =>{
   if (localStorage.getItem("refresh")) {
@@ -268,3 +266,9 @@ export const Refresh = () =>async dispatch =>{
     });
   }
   }
+
+  export const logout = () => async (dispatch) => {
+    dispatch({
+      type: LOGOUT,
+    });
+  };
