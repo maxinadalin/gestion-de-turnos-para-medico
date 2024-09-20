@@ -26,7 +26,7 @@ import {BookmarkIcon,
   
 
   import { ChevronDownIcon } from '@heroicons/react/24/solid';
-  import { logout } from "../../redux/actions/auth/auth";
+  import { logout } from "../../redux/actions/auth";
 
 
 

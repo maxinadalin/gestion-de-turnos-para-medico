@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class CoberturasConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'coberturas'
+    name = 'apps.coberturas'

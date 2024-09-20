@@ -1,5 +1,5 @@
 import { connect } from "react-redux"
-import { Sign_Up } from "../../redux/actions/auth/auth"
+import { Sign_Up } from "../../redux/actions/auth"
 import { useEffect, useState } from "react"
 
 

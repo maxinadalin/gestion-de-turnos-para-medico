@@ -19,7 +19,7 @@ import {
   RESET_PASSWORD_FAIL,
   RESET_PASSWORD_CONFIRM_SUCCESS,
   RESET_PASSWORD_CONFIRM_FAIL,
-} from "../types";
+} from "./types";
 
 import axios from "axios";
 

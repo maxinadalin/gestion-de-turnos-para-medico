@@ -1,5 +1,5 @@
 import { connect } from "react-redux"
-import { Sign_In } from "../../redux/actions/auth/auth"
+import { Sign_In } from "../../redux/actions/auth"
 import { useState } from "react"
 import { Navigate } from "react-router-dom"
 
