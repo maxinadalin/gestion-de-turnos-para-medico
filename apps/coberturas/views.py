@@ -22,4 +22,22 @@ class CoberturasViews(APIView):
      
         else:
             return Response ({"mensaje" : "no se encontraron categorias"},status = status.HTTP_404_NOT_FOUND)
+
+class SearchCoberturas(APIView):
+    permission_classes = (permissions.AllowAny,)
+    
+    def post(self,request,format=None):
+        data = self.request.data
         
+        search = data["search"]
+        
+        if len(search) == 0:
+            search = Coberturas.objects.all()
+        else:
+            search = Coberturas.objects.filter(
+                Q(descripcion__icontains=search)|Q(nombre__icontains=search)
+            )
+        
+        searchSerializer = CoberturaSerializers(search,many = True)
+        
+        return Response ({"mensaje" : searchSerializer.data},status = status.HTTP_200_OK)
