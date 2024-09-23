@@ -1,9 +1,9 @@
 import { connect } from "react-redux";
-import Banner from "../../components/pages/home/banner";
+import Banner from "../../components/home/banner";
 import Layout from "../../hocs/layout";
-import Servicios from "../../components/pages/home/servicios";
-import Doctores from "../../components/pages/home/doctores";
-import Contacto from "../../components/pages/home/contacto";
+import Servicios from "../../components/home/servicios";
+import Doctores from "../../components/home/doctores";
+import Contacto from "../../components/home/contacto";
 
 function Home({}) {
   return (
