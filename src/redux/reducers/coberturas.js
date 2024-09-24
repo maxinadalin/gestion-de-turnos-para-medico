@@ -32,7 +32,7 @@ export default function (state = initialState, actions) {
     case COBERTURAS_SUCCESS:
       return {
         ...state,
-        coberturas: payload.coverage,
+        coberturas: payload.coberturas,
       };
 
     case COBERTURAS_FAIL:

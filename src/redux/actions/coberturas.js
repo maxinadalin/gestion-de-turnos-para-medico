@@ -16,7 +16,7 @@ export const TotalCoberturas = () => async dispatch =>{
     const config = {
         headers : {
             "accept" : "application/json",
-            "authentication" : "application/json"
+            // "authentication" : "application/json"
         }
     }
     try {
@@ -52,7 +52,7 @@ export const TotalCoberturas = () => async dispatch =>{
 })
 }
 
-export const CoberturaSearch = () =>async dispatch =>{
+export const CoberturaSearch = (search) =>async dispatch =>{
     const config = {
         headers : {
             "accept" : "application/json",

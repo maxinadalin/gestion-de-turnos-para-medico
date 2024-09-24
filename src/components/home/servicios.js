@@ -1,4 +1,6 @@
 import { connect } from "react-redux"
+import doctores from "../../assets/img/medicos1.jpg"
+import doctores2 from "../../assets/img/doctores2.jpg"
 const features = [
     { name: 'Origin', description: 'Designed by Good Goods, Inc.' },
     { name: 'Material', description: 'Solid walnut base with rare earth magnets and powder coated steel card cover' },
@@ -25,8 +27,8 @@ const features = [
           <div className="grid grid-cols-1  gap-4 sm:gap-6 lg:gap-8">
            
             <img
-              alt="Walnut card tray filled with cards and card angled in dedicated groove."
-              src="https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-04.jpg"
+              alt="doctores"
+              src={doctores}
               className="rounded-lg bg-gray-100"
             />
           </div>
@@ -34,8 +36,8 @@ const features = [
           <div className="grid grid-cols-1  gap-4 sm:gap-6 lg:gap-8">
            
            <img
-             alt="Walnut card tray filled with cards and card angled in dedicated groove."
-             src="https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-04.jpg"
+             alt="doctores2"
+             src={doctores2}
              className="rounded-lg bg-gray-100"
            />
          </div>

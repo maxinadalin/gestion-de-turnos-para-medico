@@ -18,7 +18,7 @@ class CoberturasViews(APIView):
         if Coverage.exists():
             Coverageserializers = CoberturaSerializers(Coverage,many=True)
             print(Coverage)
-            return Response ({"mensaje": Coverageserializers.data},status = status.HTTP_200_OK)
+            return Response ({"coberturas": Coverageserializers.data},status = status.HTTP_200_OK)
      
         else:
             return Response ({"mensaje" : "no se encontraron categorias"},status = status.HTTP_404_NOT_FOUND)
@@ -40,4 +40,4 @@ class SearchCoberturas(APIView):
         
         searchSerializer = CoberturaSerializers(search,many = True)
         
-        return Response ({"mensaje" : searchSerializer.data},status = status.HTTP_200_OK)
+        return Response ({"searchSerializer" : searchSerializer.data},status = status.HTTP_200_OK)

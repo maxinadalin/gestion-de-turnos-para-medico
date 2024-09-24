@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import {Menu, Popover, Transition } from "@headlessui/react";
 import {BookmarkIcon,
     BriefcaseIcon,
@@ -27,6 +27,7 @@ import {BookmarkIcon,
 
   import { ChevronDownIcon } from '@heroicons/react/24/solid';
   import { logout } from "../../redux/actions/auth";
+  import {TotalCoberturas} from "../../redux/actions/coberturas"
 
 
 
@@ -108,8 +109,15 @@ function NavBar({
   isAuthenticated,
   loading,
   logout,
+  TotalCoberturas,
+  coverages
 }) {
+  useEffect(() => {
+    TotalCoberturas();
+  },[])
 
+
+ 
   const [redirect,setRedirect] = useState(false)
 
   const logOutHandler = (e) => {
@@ -238,7 +246,7 @@ const authLinks = (
 
 
   return (
-    <Popover className="relative bg-gray-800">
+    <Popover className="relative bg-white">
     <div
       className="absolute inset-0 shadow z-30 pointer-events-none"
       aria-hidden="true"
@@ -293,33 +301,29 @@ const authLinks = (
                   >
                     <Popover.Panel className="hidden md:block absolute z-10 top-full inset-x-0 transform shadow-lg bg-white">
                       <div className="max-w-7xl mx-auto grid gap-y-6 px-4 py-6 sm:grid-cols-2 sm:gap-8 sm:px-6 sm:py-8 lg:grid-cols-4 lg:px-8 lg:py-12 xl:py-16">
-                        {solutions.map((item) => (
+                        {coverages != null &&
+    coverages != undefined &&
+    coverages && coverages.map((item)=>(
                           <a
-                            key={item.name}
-                            href={item.href}
+                            key={item.nombre}
                             className="-m-3 p-3 flex flex-col justify-between rounded-lg hover:bg-gray-50"
-                          >
+                          >{item.nombre}
                             <div className="flex md:h-full lg:flex-col">
                               <div className="flex-shrink-0">
                                 <span className="inline-flex items-center justify-center h-10 w-10 rounded-md bg-indigo-500 text-white sm:h-12 sm:w-12">
-                                  <item.icon
-                                    className="h-6 w-6"
-                                    aria-hidden="true"
-                                  />
                                 </span>
                               </div>
                               <div className="ml-4 md:flex-1 md:flex md:flex-col md:justify-between lg:ml-0 lg:mt-4">
                                 <div>
                                   <p className="text-base font-medium text-gray-900">
-                                    {item.name}
+                                    {item.nombre}
                                   </p>
                                   <p className="mt-1 text-sm text-gray-500">
-                                    {item.description}
+                                    {item.descripcion}
                                   </p>
                                 </div>
                                 <p className="mt-2 text-sm font-medium text-indigo-600 lg:mt-4">
                                   Learn more{" "}
-                                  <span aria-hidden="true">&rarr;</span>
                                 </p>
                               </div>
                             </div>
@@ -349,12 +353,11 @@ const authLinks = (
                 </>
               )}
             </Popover>
-            <a
-              href="#"
+            <Link to={"/SobreNosotros"}
               className="text-base font-medium text-gray-500 hover:text-gray-900"
             >
               Sobre Nosotros
-            </a>
+            </Link>
 
             <Popover>
               {({ open }) => (
@@ -612,10 +615,12 @@ const authLinks = (
  )}
 const mapStateToProps = state => ({
   isAuthenticated : state.auth.isAuthenticated,
-  loading: state.auth.loading
+  loading: state.auth.loading,
+  coverages: state.coberturas.coberturas
 })
 
 export default connect (mapStateToProps,{
   logout,
+  TotalCoberturas
 }) (NavBar)
 
