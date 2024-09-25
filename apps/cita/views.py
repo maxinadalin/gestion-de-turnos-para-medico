@@ -12,7 +12,14 @@ from apps.doctores.models import Doctores
 class CitasView(APIView):
     def get(self,request, pacienteId, format = None):
         
-        paciente  = Paciente.objects.filter(id=pacienteId)
-
-        if paciente.exists():
-            return Response
+        paciente = int(pacienteId)
+        print(f"es te es paciente numero {paciente}")
+        if Paciente.objects.filter(id=paciente).exists():
+            pacienteCita = Cita.objects.filter(paciente=paciente)
+            cita_serializers = CitaSerializers(pacienteCita, many = True)
+            if len(pacienteCita) == 0:
+                return Response	({"mensaje":"no se encontraron cita para este paciente"},status = status.HTTP_404_NOT_FOUND)
+            else:
+                return Response ({"Cita" : cita_serializers.data},status = status.HTTP_200_OK)
+        else:
+            return Response	({"mensaje":"no se encontro un paciente"},status = status.HTTP_404_NOT_FOUND)

@@ -10,11 +10,11 @@ class Cita(models.Model):
         verbose_name = "Cita"
         verbose_name_plural = "Citas"
         
-    paciente = models.OneToOneField(Paciente, on_delete=models.CASCADE)
-    doctor = models.OneToOneField(Doctores,on_delete=models.CASCADE)
+    paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
+    doctor = models.ForeignKey(Doctores,on_delete=models.CASCADE)
     fechaTurno = models.DateTimeField(auto_now=False, auto_now_add=False)
-    fechaSolicitud = models.models.DateField(default = datetime.now)
+    fechaSolicitud = models.DateField(default = datetime.now)
     
     def __str__(self):
-        return self.paciente
+        return self.paciente.nombre
     
