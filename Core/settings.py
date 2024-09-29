@@ -39,7 +39,7 @@ DJANGO_APPS = [
 
 # here we put on all apps we will create
 PROJECT_APPS = ['apps.user']
-ECOMMERCE_APPS = ['apps.coberturas','apps.doctores','apps.pacientes','apps.cita']
+ECOMMERCE_APPS = ['apps.coberturas','apps.doctores','apps.pacientes','apps.cita','apps.lugares']
 
 
 # in this section we put on everythings that we installed in requirements.txt

@@ -6,8 +6,10 @@ class CitaSerializers(serializers.ModelSerializer):
     class Meta:
         model = Cita
         fields = [
+            "id",
             'paciente',
             'doctor',
+            "lugar",
             'fechaTurno',
             'fechaSolicitud',
         ]              
