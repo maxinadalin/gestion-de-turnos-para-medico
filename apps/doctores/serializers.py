@@ -3,7 +3,7 @@ from .models import Doctores
 
 
 class DoctoreSerializers(serializers.ModelSerializer):
-    edad = serializers.DateField(format='%d-%m-%Y', input_formats=['%d-%m-%Y'])
+    # edad = serializers.DateField(format='%d-%m-%Y', input_formats=['%d-%m-%Y'])
     class Meta:
         model = Doctores
         fields = [
