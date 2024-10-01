@@ -1,4 +1,5 @@
 from django.db import models
+from apps.especialidades.models import Especialidades
 
 
 
@@ -12,7 +13,7 @@ class Doctores(models.Model):
         
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
-    especialidad = models.CharField(max_length=50)
+    especialidad = models.ForeignKey(Especialidades,null=False,blank=False,on_delete=models.CASCADE)
     edad = models.IntegerField(null=True,)
         
     def __str__(self):
